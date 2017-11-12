@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
+import logo from '../images/logo.png';
 import '../App.css';
 import { Route } from 'react-router-dom';
-
-import Navbar from './Navbar'
+//Components
+import Navbar from './Navbar';
+import ListPosts from './ListPosts';
+import CreatePost from './CreatePost';
 
 class App extends Component {
   state= {
-      categories: ['Politics', 'Art', 'Music', 'Science', 'Sports'],
+      categories: ['All', 'Politics', 'Art', 'Music', 'Science', 'Sports'],
     }
     
   render() {
@@ -17,7 +19,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Readable</h1>
         </header>
-        <Navbar></Navbar>
+        <Navbar categories={this.state.categories}></Navbar>
+        {this.state.categories.map((category) => (
+          <Route exact path={`/${category}`} key={category} render={() => (
+            <ListPosts category={category}/>
+          )}/>
+        ))}
+        <Route exact path='/create' render={() => (
+          <CreatePost/>
+        )}/>
       </div>
     );
   }

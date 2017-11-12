@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import {Nav, NavDropdown, NavItem, MenuItem} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 class Navbar extends Component {
-    render(){
-        return(
-            <Nav bsStyle="tabs" activeKey="1" onSelect={this.handleSelect}>
-                <NavItem eventKey="1" href="/home">NavItem 1 content</NavItem>
-                <NavItem eventKey="2" title="Item">NavItem 2 content</NavItem>
-                <NavItem eventKey="3" disabled>NavItem 3 content</NavItem>
-                <NavDropdown eventKey="4" title="Dropdown" id="nav-dropdown">
-                    <MenuItem eventKey="4.1">Action</MenuItem>
-                    <MenuItem eventKey="4.2">Another action</MenuItem>
-                    <MenuItem eventKey="4.3">Something else here</MenuItem>
-                    <MenuItem divider />
-                    <MenuItem eventKey="4.4">Separated link</MenuItem>
-                </NavDropdown>
-            </Nav>
+
+    render() {
+        return (
+            <nav className='navbar navbar-expand-lg navbar-light bg-light rounded'>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse justify-content-md-center" id='navbarsExample10'>
+                    <ul className='navbar-nav' onSelect={this.handleSelect} >
+                        {
+                            this.props.categories.map((category) => (
+                                <li eventKey={category} className='nav-item'><Link className='nav-link' to={`/${category}`}>{category}</Link></li>
+                            ))
+                        }
+                        <li eventKey="create" className='nav-item'><Link className='nav-link' to='/create'>Create Post</Link></li>
+                    </ul >
+                </div>
+            </nav>
         )
     }
 }
