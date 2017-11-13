@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as ReadableAPI from '../utils/api';
+import { capitalize } from '../utils/helpers'
 
 
 class Navbar extends Component {
@@ -10,7 +11,7 @@ class Navbar extends Component {
 
     componentDidMount() {
         ReadableAPI.getCategories().then((categories) => {
-            const categoryNames = categories.map((category) => category.name)
+            const categoryNames = categories.map((category) => capitalize(category.name))
             console.log(categoryNames)
             this.setState({ categories: categoryNames });
         })
