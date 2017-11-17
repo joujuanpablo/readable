@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from '../images/logo.png';
 import '../App.css';
 import { Route } from 'react-router-dom';
+import * as ReadableAPI from '../utils/api';
+import { capitalize } from '../utils/helpers'
 //Components
 import Navbar from './Navbar';
 import ListPosts from './ListPosts';
@@ -9,7 +11,15 @@ import CreatePost from './CreatePost';
 
 class App extends Component {
   state= {
-      categories: ['All', 'Politics', 'Art', 'Music', 'Science', 'Sports'],
+      categories: [],
+    
+    }
+  componentDidMount() {
+        ReadableAPI.getCategories().then((categories) => {
+            const categoryNames = categories.map((category) => capitalize(category.name))
+            // console.log(categoryNames)
+            this.setState({ categories: categoryNames });
+        })
     }
     
   render() {

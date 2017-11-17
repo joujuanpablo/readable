@@ -3,14 +3,15 @@ const token = 'whatever-you-want'
 const headers = { 'Authorization': token }
 
 
-//POSTS
+//-------CATEGORIES-------//
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
     .catch(err => console.log('ERROR', err))
 
-export const getAllPosts = () =>
+//-------POSTS-------//
+export const getPosts = () =>
     fetch(`${api}/posts`, { headers })
         .then(res => res.json())
         .then(data => data.posts)
@@ -74,7 +75,7 @@ export const deletePost = (id) =>
   }).then(res => res.json())
     .catch(err => console.log('ERROR', err))
 
-//COMMENTS
+//-----COMMENTS-----//
 export const getPostComments = (id) =>
   fetch(`${api}/posts/:${id}/comments`, { headers })
     .then(res => res.json())

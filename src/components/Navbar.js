@@ -25,6 +25,7 @@ class Navbar extends Component {
                 </button>
                 <div className="collapse navbar-collapse justify-content-md-center" id='navbarsExample10'>
                     <ul className='navbar-nav' onSelect={this.handleSelect} >
+                         <li key="all" className='nav-item'><Link className='nav-link' to='/all'>All Posts</Link></li>
                         {
                             this.state.categories.map((category) => (
                                 <li key={category} className='nav-item'><Link className='nav-link' to={`/${category}`}>{category}</Link></li>
