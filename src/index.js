@@ -6,19 +6,20 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './reducers';
+import reducer from './reducers/reducers';
 import { Provider } from 'react-redux';
+import logger from 'redux-logger';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const logger = store => next => action => {
-    console.group(action.type)
-    console.info('dispatching', action)
-    let result = next(action)
-    console.log('next state', store.getState())
-    console.groupEnd(action.type)
-    return result
-}
+// const logger = store => next => action => {
+//     console.group(action.type)
+//     console.info('dispatching', action)
+//     let result = next(action)
+//     console.log('next state', store.getState())
+//     console.groupEnd(action.type)
+//     return result
+// }
 
 const store = createStore(
     reducer,

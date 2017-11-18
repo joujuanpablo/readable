@@ -12,7 +12,6 @@ class Navbar extends Component {
     componentDidMount() {
         ReadableAPI.getCategories().then((categories) => {
             const categoryNames = categories.map((category) => capitalize(category.name))
-            console.log(categoryNames)
             this.setState({ categories: categoryNames });
         })
     }
