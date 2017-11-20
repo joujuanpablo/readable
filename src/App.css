@@ -35,14 +35,23 @@
     }
 }
 
+.filter-by {
+    width: 50vw;
+    max-width: 200px;
+}
+
 .posts-list,
 .create-post {
     margin-top: 220px;
     padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .post-summary-wrapper {
     padding-bottom: 20px;
+    width: 100%;
 }
 
 .post-summary .post-stats {
@@ -57,6 +66,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    cursor: pointer;
 }
 
 .post-summary .post-stats {

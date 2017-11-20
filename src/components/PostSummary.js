@@ -12,8 +12,9 @@ class PostSummary extends Component {
                     <h1 className='post-title'>{post.title}</h1>
                 <div className='post-stats'>
                     <p>by: {post.author}</p>
+                    <p>category: {post.category}</p>                    
                     <p>date: {post.timestamp}</p>
-                    <p>votes: {post.votes}</p>
+                    <p>votes: {post.voteScore}</p>
                     <p>comments: {post.votes}</p>
                 </div></div>
             </div>

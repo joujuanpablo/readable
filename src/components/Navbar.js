@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import * as ReadableAPI from '../utils/api';
 import { capitalize } from '../utils/helpers'
 
@@ -24,13 +24,13 @@ class Navbar extends Component {
                 </button>
                 <div className="collapse navbar-collapse justify-content-md-center" id='navbarsExample10'>
                     <ul className='navbar-nav' onSelect={this.handleSelect} >
-                         <li key="all" className='nav-item'><Link className='nav-link' to='/all'>All Posts</Link></li>
+                         <li key="all" className='nav-item'><NavLink className='nav-link' to='/all'>All Posts</NavLink></li>
                         {
                             this.state.categories.map((category) => (
-                                <li key={category} className='nav-item'><Link className='nav-link' to={`/${category}`}>{category}</Link></li>
+                                <li key={category} className='nav-item'><NavLink className='nav-link' to={`/${category}`}>{category}</NavLink></li>
                             ))
                         }
-                        <li key="create" className='nav-item'><Link className='nav-link' to='/create'>Create Post</Link></li>
+                        <li key="create" className='nav-item'><NavLink className='nav-link' to='/create'>Create Post</NavLink></li>
                     </ul >
                 </div>
             </nav>

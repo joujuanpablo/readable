@@ -20,7 +20,7 @@ export const getPosts = () =>
 export const getCategoryPosts = (category) =>
     fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json())
-    .then(data => data.posts)
+    .then(data => data)
     .catch(err => console.log('ERROR', err))
 
 export const postNewPost = (id, timestamp, title, body, author, category) =>

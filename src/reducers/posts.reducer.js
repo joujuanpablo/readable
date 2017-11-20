@@ -1,11 +1,25 @@
-import { RECEIVED_POSTS, CREATE_POST, VOTE_ON_POST, EDIT_POST, DELETE_POST } from '../actions';
+import { RECEIVED_POSTS, CREATE_POST, VOTE_ON_POST, EDIT_POST, DELETE_POST } from '../actions/actions';
 
 const initialState = {
     entries: [{
-        id: 'initial',
-        title: 'Chris is dope',
-        comments: []
-    }],
+            id: 'initial',
+            title: 'Chris is dope',
+            author: 'JP',
+            timestamp: '12345',
+            category: 'react',
+            voteScore: 0,
+            comments: []
+        },
+        {
+            id: 'initial2',
+            title: 'Moo goes the cow',
+            author: 'JP',
+            timestamp: '32222222',
+            category: 'react',
+            voteScore: 4,
+            comments: []
+        }
+    ],
     isFetching: false
 }
 

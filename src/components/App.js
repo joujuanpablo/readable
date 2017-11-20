@@ -3,8 +3,7 @@ import logo from '../images/logo.png';
 import '../App.css'
 import { Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { handleReceivedPosts, createPost } from '../actions'
-import { capitalize } from '../utils/helpers'
+import { handleReceivedPosts, createPost } from '../actions/actions'
 
 import * as ReadableAPI from '../utils/api';
 
@@ -21,18 +20,18 @@ class App extends Component {
     
     }
   componentDidMount() {
-        ReadableAPI.getCategories().then((categories) => {
-            const categoryNames = categories.map((category) => capitalize(category.name))
-            this.setState({ categories: categoryNames });
+        ReadableAPI.getCategories().then((Categories) => {
+
+            this.setState({ categories: Categories });
         })
 
-        ReadableAPI.getPosts() //grab data from the api
-        .then((posts) => this.props.receivedPosts(posts)) //now send the data to the function we have from mapDispatchToPros which wraps the app
+        // ReadableAPI.getPosts() //grab data from the api
+        // .then((posts) => this.props.receivedPosts(posts)) //now send the data to the function we have from mapDispatchToPros which wraps the app
     }
     
   render() {
     const { posts } = this.props;
-    console.log('props', this.props);
+    console.log('appjs-props', this.props);
     return (
       <div className="App">
         <header className="App-header">
@@ -41,14 +40,14 @@ class App extends Component {
           <Navbar categories={this.state.categories}></Navbar>
         </header>
         <Route exact path='/all' render={() => (
-          <ListPosts posts={posts}/>
+          <ListPosts category='all' posts={posts}/>
         )}/>
         <Route path='/create' render={() => (
           <CreatePost/>
         )}/>
         {this.state.categories.map((category) => (
-          <Route exact path={`/${category}`} key={category} render={() => (
-            <ListPosts category={category} posts={posts}/>
+          <Route exact path={`/${category.name}`} key={category.name} render={() => (
+            <ListPosts category={category.name}/>
           )}/>
         ))}
       </div>
@@ -56,15 +55,17 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({posts, ui: { currentCategory }}) => { //grabs from the store and makes available as props
+const mapStateToProps = ({posts, ui}) => { //grabs from the store and makes available as props
   return { 
-    posts: currentCategory !== '' ? posts.map((post) => post.category === currentCategory) : posts
-  }  //we should be doing this with props send inline
+    // posts: currentCategory !== '' ? posts.map((post) => post.category === currentCategory) : posts
+    posts: posts,
+    ui: ui
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({ //sends to the store
   newPost: (data) => dispatch(createPost(data)),
-  receivedPosts: (posts) =>  dispatch(handleReceivedPosts(posts)) //handleReceivedPosts lives in the actions
+  receivedPosts: (posts) =>  dispatch(handleReceivedPosts(posts)) //handleReceivedPosts lives in the actions ... should this not be for the new posts?
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
