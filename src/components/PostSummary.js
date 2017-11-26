@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import ReactDom from 'react-dom'
 import '../index.css'
-import { BrowserRouter, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import PostDetails from './PostDetails'
-import { Route } from 'react-router-dom'
 
 class PostSummary extends Component {
     render() {

@@ -26,7 +26,7 @@ class ListComments extends Component {
                 {loadingComments === true
                     ? <Loading delay={200} type='spin' color='#222' className='loading' />
                     : <div>
-                        {this.state.comments.map((entry) => (
+                        {comments.map((entry) => (
                             <CommentSummary key={entry.id} comment={entry}/>
                         ))}
                     </div>

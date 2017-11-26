@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ListComments from './ListComments'
 import TiThumbsUp from 'react-icons/lib/ti/thumbs-up';

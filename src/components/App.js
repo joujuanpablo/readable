@@ -21,33 +21,25 @@ class App extends Component {
     comments: [],
 
   }
-  // componentWillMount() {
-  //   ReadableAPI.getPosts() //grab data from the api
-  //     .then((posts) => {
-  //       this.props.receivedPosts(posts) //now send the data to the function we have from mapDispatchToPros which wraps the app
-  //       this.setState({ posts: this.props.posts })
-  //     })
-  // }
+
   componentDidMount() {
     ReadableAPI.getPosts() //grab data from the api
       .then((posts) => {
-        console.log('component did mount app.js')
         this.setState({
-          posts: posts
+          posts: posts //set the results to local state
         })
-    //     this.props.receivedPosts(posts) //now send the data to the function we have from mapDispatchToPros which wraps the app
-    //     // this.setState({ posts: })
+        //TODO this.props.receivedPosts(posts) //now send the data to the function we have from mapDispatchToPros which wraps the app
       })
     ReadableAPI.getCategories().then((Categories) => {
-      this.setState({ categories: Categories });
+      this.setState({ 
+        categories: Categories 
+      })
+       //TODO, send these up to app state
     })
-    console.log('component did mount app.js')
   }
 
   render() {
-    const { posts } = this.props;
-    console.log('appjs-props', this.props)
-    console.log('appjs-state', this.state)
+    const { posts } = this.props
     return (
       <div className="App">
         <header className="App-header">
@@ -89,7 +81,7 @@ const mapStateToProps = ({ posts, ui }) => { //grabs from the store and makes av
 
 const mapDispatchToProps = (dispatch) => ({ //sends to the store
   newPost: (data) => dispatch(createPost(data)),
-  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts)) //handleReceivedPosts lives in the actions ... should this not be for the new posts?
+  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts)) //handleReceivedPosts lives in the actions
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

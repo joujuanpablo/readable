@@ -14,7 +14,6 @@ class Navbar extends Component {
             const categoryNames = categories.map((category) => capitalize(category.name))
             this.setState({ categories: categoryNames });
         })
-        console.log('Navbar mounted with api call to backend')
     }
 
     render() {

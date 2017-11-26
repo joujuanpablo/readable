@@ -14,11 +14,13 @@ class ListPosts extends Component {
             ReadableAPI.getPosts()
                 .then((posts) => {
                     var sortedPosts = posts.sort(sortBy(this.props.ui.sortBy)).reverse()
+
                     var stampedPosts = sortedPosts.map((post) => {
                         let dateTime = new Date(post.timestamp)
                         dateTime = dateTime.toISOString()
                         post['formattedDate'] = dateTime
                     })
+
                     this.setState({
                         posts: sortedPosts
                     })
@@ -31,7 +33,6 @@ class ListPosts extends Component {
                         let dateTime = new Date(post.timestamp)
                         dateTime = dateTime.toISOString()
                         post['formattedDate'] = dateTime
-                        console.log('modified-date', post)
                     }
 
                     )
@@ -43,7 +44,6 @@ class ListPosts extends Component {
     }
 
     changeSort = (sortType) => {
-        console.log('change the sort type', sortType)
         var sortedPosts = this.state.posts.sort(sortBy(sortType)).reverse()
         this.setState({
             posts: sortedPosts
