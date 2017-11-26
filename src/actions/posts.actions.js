@@ -11,8 +11,7 @@ export const RECEIVED_POSTS = 'RECEIVED_POSTS'
 
 export const handleReceivedPosts = (posts) => { //handleReceivedPosts reformats the data a bit before we send it off to the action and then the reducer and then the store
     const newPosts = posts.map((post) => ({
-        ...post,
-        time: Date.now() //just for now
+        ...post
     }))
 
     return receivedPosts(newPosts);

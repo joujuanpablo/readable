@@ -14,11 +14,12 @@ class Navbar extends Component {
             const categoryNames = categories.map((category) => capitalize(category.name))
             this.setState({ categories: categoryNames });
         })
+        console.log('Navbar mounted with api call to backend')
     }
 
     render() {
         return (
-            <nav className='navbar navbar-expand-lg navbar-light bg-light rounded'>
+            <nav className='navbar navbar-expand-lg navbar-light bg-light rounded container'>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

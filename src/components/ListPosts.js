@@ -14,6 +14,11 @@ class ListPosts extends Component {
             ReadableAPI.getPosts()
                 .then((posts) => {
                     var sortedPosts = posts.sort(sortBy(this.props.ui.sortBy)).reverse()
+                    var stampedPosts = sortedPosts.map((post) => {
+                        let dateTime = new Date(post.timestamp)
+                        dateTime = dateTime.toISOString()
+                        post['formattedDate'] = dateTime
+                    })
                     this.setState({
                         posts: sortedPosts
                     })
@@ -21,7 +26,15 @@ class ListPosts extends Component {
         } else {
             ReadableAPI.getCategoryPosts(this.props.category)
                 .then((posts) => {
-                    var sortedPosts = posts.sort(sortBy(this.props.ui.sortBy)).reverse()                    
+                    var sortedPosts = posts.sort(sortBy(this.props.ui.sortBy)).reverse()
+                    var stampedPosts = sortedPosts.map((post) => {
+                        let dateTime = new Date(post.timestamp)
+                        dateTime = dateTime.toISOString()
+                        post['formattedDate'] = dateTime
+                        console.log('modified-date', post)
+                    }
+
+                    )
                     this.setState({
                         posts: sortedPosts
                     })
@@ -41,7 +54,7 @@ class ListPosts extends Component {
 
         return (
             <div className='posts-list'>
-                <FilterBy changeSort={this.changeSort}/>
+                <FilterBy changeSort={this.changeSort} />
                 {this.state.posts.map((entry) => (
                     <PostSummary key={entry.id} post={entry} />
                 ))}
@@ -50,10 +63,10 @@ class ListPosts extends Component {
         )
     }
 }
-const mapStateToProps = ({ui}) => { //grabs from the store and makes available as props
-  return { 
-    ui: ui
-  }
+const mapStateToProps = ({ ui }) => { //grabs from the store and makes available as props
+    return {
+        ui: ui
+    }
 }
 
-export default connect(mapStateToProps)(ListPosts) 
+export default connect(mapStateToProps)(ListPosts)

@@ -26,6 +26,10 @@
     font-size: large;
 }
 
+.App-body {
+    margin-top: 220px
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
@@ -42,7 +46,6 @@
 
 .posts-list,
 .create-post {
-    margin-top: 220px;
     padding: 0 20px;
     display: flex;
     flex-direction: column;
@@ -94,4 +97,69 @@
 .post-summary button {
     margin-right: 20px;
     cursor: pointer;
+}
+
+.post-detail {
+    border: 1px solid lightgray;
+}
+
+.post-detail-body {
+    padding: 20px 30px;
+    border-bottom: 1px solid lightgray;
+}
+
+.post-detail-head {
+    text-align: left;
+}
+
+.post-detail-author {
+    font-size: 25px;
+    color: #3ff;
+}
+
+.post-detail-timestamp,
+.comment-time {
+    color: darkgrey;
+}
+
+.post-detail-content {
+    padding-top: 20px;
+    text-align: left;
+}
+
+.post-detail-comments {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: left;
+}
+
+.comment-summary {
+    border: 1px solid lightgray;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.comment-author {
+    font-size: 20px;
+    color: #3ff;
+}
+
+.comment-body {
+    padding: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.add-comment input {
+    border: none;
+    border-radius: 10px;
+    height: 60px;
+    width: 100%;
+    padding: 20px;
 }

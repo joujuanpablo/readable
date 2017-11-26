@@ -5,7 +5,6 @@ import { changeSortSelection } from '../actions/actions'
 class FilterBy extends Component {
     handleSortChange = (e) => {
         const { value: sortType} = e.target
-        console.log('is the event happening dawg', sortType)
         this.props.changeSort(sortType)
         this.props.changeSorty(sortType)
     }
