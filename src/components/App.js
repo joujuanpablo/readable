@@ -3,7 +3,7 @@ import logo from '../images/logo.png';
 import '../App.css'
 import { Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { handleReceivedPosts, createPost } from '../actions/actions'
+import { handleReceivedPosts, handleReceivedCategories, createPost } from '../actions/actions'
 
 import * as ReadableAPI from '../utils/api';
 
@@ -19,21 +19,26 @@ class App extends Component {
     categories: [],
     posts: [],
     comments: [],
-
   }
 
   componentDidMount() {
     ReadableAPI.getPosts() //grab data from the api
       .then((posts) => {
+
         this.setState({
-          posts: posts //set the results to local state
+          posts: posts //set the results to local (component) state TODO: see if you can kill this and only use app state (as props)
         })
-        //TODO this.props.receivedPosts(posts) //now send the data to the function we have from mapDispatchToPros which wraps the app
+
+        this.props.receivedPosts(posts) //now send the data to the function we have from mapDispatchToPros which wraps the app
+        //This function comes from the actions
+
       })
-    ReadableAPI.getCategories().then((Categories) => {
+    ReadableAPI.getCategories().then((categories) => {
       this.setState({ 
-        categories: Categories 
+        categories: categories 
       })
+      
+      this.props.receivedCategories(categories)
        //TODO, send these up to app state
     })
   }
@@ -81,7 +86,8 @@ const mapStateToProps = ({ posts, ui }) => { //grabs from the store and makes av
 
 const mapDispatchToProps = (dispatch) => ({ //sends to the store
   newPost: (data) => dispatch(createPost(data)),
-  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts)) //handleReceivedPosts lives in the actions
+  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts)), //handleReceivedPosts lives in the actions
+  receivedCategories: (categories) => dispatch(handleReceivedCategories(categories))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

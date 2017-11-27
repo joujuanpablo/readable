@@ -9,13 +9,21 @@ export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const RECEIVED_POSTS = 'RECEIVED_POSTS'
 
-export const handleReceivedPosts = (posts) => { //handleReceivedPosts reformats the data a bit before we send it off to the action and then the reducer and then the store
-    const newPosts = posts.map((post) => ({
-        ...post
-    }))
+export const handleReceivedPosts = (posts) => {
+    //handleReceivedPosts reformats the data a bit before we send it off to the action and then the reducer and then the store
 
+    const newPosts = posts.map((post) => {
+
+        let dateTime = new Date(post.timestamp)
+        dateTime = dateTime.toISOString()
+
+        return {
+            ...post,
+            formattedDate: dateTime
+        }
+    })
+    console.log('newPosts', newPosts)
     return receivedPosts(newPosts);
-
 }
 
 export function receivedPosts(posts) {
