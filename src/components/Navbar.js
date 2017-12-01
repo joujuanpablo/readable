@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as ReadableAPI from '../utils/api';
-import { capitalize } from '../utils/helpers'
+import { handleReceivedCategories } from '../actions/actions'
+
 
 
 class Navbar extends Component {
-    state = {
-        categories: [],
-    }
 
     componentDidMount() {
         ReadableAPI.getCategories().then((categories) => {
-            const categoryNames = categories.map((category) => capitalize(category.name))
-            this.setState({ categories: categoryNames });
+            this.props.receivedCategories(categories)
         })
     }
 
@@ -26,7 +24,7 @@ class Navbar extends Component {
                     <ul className='navbar-nav' onSelect={this.handleSelect} >
                          <li key="all" className='nav-item'><NavLink className='nav-link' to='/all'>All Posts</NavLink></li>
                         {
-                            this.state.categories.map((category) => (
+                            this.props.categories.capitalizedCategories.map((category) => (
                                 <li key={category} className='nav-item'><NavLink className='nav-link' to={`/${category}`}>{category}</NavLink></li>
                             ))
                         }
@@ -37,5 +35,14 @@ class Navbar extends Component {
         )
     }
 }
+const mapStateToProps = ({ categories}) =>  {
+    return {
+        categories,
+    } 
+}
 
-export default Navbar;
+const mapDispatchToProps = (dispatch) => ({
+    receivedCategories: (categories) => dispatch(handleReceivedCategories(categories))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

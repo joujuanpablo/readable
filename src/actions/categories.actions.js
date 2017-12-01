@@ -5,12 +5,15 @@ export const handleReceivedCategories= (categories) => {
     //this is where we can do the capitalize bit
     const capitalizedCategories = categories.map((category) => capitalize(category.name))
     console.log('capitalised categories', capitalizedCategories)
-    return receivedCategories(capitalizedCategories)//now send it to the action creator
+    return receivedCategories(categories, capitalizedCategories)//now send it to the action creator
 }
 
-export function receivedCategories(categories) {
+export function receivedCategories(categories, capitalizedCategories) {
     return {
         type: RECEIVED_CATEGORIES,
-        payload: categories,
+        payload: {
+            categories,
+            capitalizedCategories,
+        }
     }
 }

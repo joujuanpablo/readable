@@ -6,27 +6,16 @@ import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
 
 class PostDetails extends Component {
-    state = {
-        post: {}
-    }
-    componentDidMount() {
-        let dateTime = new Date(this.props.post.timestamp)
-        dateTime = dateTime.toISOString()
-
-        this.setState({
-            post: this.props.post,
-            formattedDate: dateTime
-        })
-    }
+    
     render() {
-        const { post, formattedDate } = this.state
+        const { post } = this.props
         return (
             <div className="post-detail">
                 <div className="post-detail-body">
                     <div className="post-detail-head">
                         <div className="post-detail-author">{post.author}</div>
                         <div className="post-detail-title">{post.title}</div>
-                        <div className="post-detail-timestamp">{formattedDate}</div>
+                        <div className="post-detail-timestamp">{post.formattedDate}</div>
                     </div>
                     <div className="post-detail-content">
                         <p>{post.body}</p>
