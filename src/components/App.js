@@ -3,6 +3,8 @@ import logo from '../images/logo.png';
 import '../App.css'
 import { Route, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import * as ReadableAPI from '../utils/api';
+import { handleReceivedPosts } from '../actions/actions'
 
 
 
@@ -20,7 +22,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
+    console.log('the posts in props on app.js', this.props.posts)
+    ReadableAPI.getPosts()
+    .then((Posts) => {
+
+        this.props.receivedPosts(Posts)
+
+    })
   }
 
   render() {
@@ -68,4 +76,8 @@ const mapStateToProps = ({ posts, ui, categories }) => { //grabs from the store 
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = (dispatch) => ({
+  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import ListComments from './ListComments'
 import TiThumbsUp from 'react-icons/lib/ti/thumbs-up';
 import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
 
 class PostDetails extends Component {
+    componentDidMount() {
+        console.log('post-details props', this.props)
+    }
     
     render() {
         const { post } = this.props
@@ -38,12 +42,11 @@ class PostDetails extends Component {
 
     }
 }
-const mapStateToProps = ({ posts, ui }) => { //grabs from the store and makes available as props
+const mapStateToProps = ({ posts, ui }) => {
     return {
-        // posts: currentCategory !== '' ? posts.map((post) => post.category === currentCategory) : posts
         posts: posts,
         ui: ui
     }
 }
 
-export default connect(mapStateToProps)(PostDetails)  
+export default withRouter(connect(mapStateToProps)(PostDetails))  
