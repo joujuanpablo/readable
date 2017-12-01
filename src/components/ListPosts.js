@@ -4,7 +4,6 @@ import FilterBy from './FilterBy'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 import { handleReceivedPosts } from '../actions/actions'
-import * as ReadableAPI from '../utils/api';
 
 class ListPosts extends Component {
 

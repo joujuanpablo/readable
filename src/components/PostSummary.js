@@ -10,11 +10,13 @@ class PostSummary extends Component {
         return (
             <div className='post-summary-wrapper'>
                 <Link to={`/post-${post.id}`} className='post-summary btn btn-outline-info '>
-                    <h1 className='post-title'>{post.title}</h1>
+                    <div className='post-summary-header'>
+                        <div className='post-title'>{post.title}</div>
+                        <p className='post-author'>{post.author}</p>
+                        <p className='post-summary-timestamp'>date: {post.formattedDate}</p>
+                    </div>
                     <div className='post-stats'>
-                        <p>by: {post.author}</p>
-                        <p>category: {post.category}</p>
-                        <p>date: {post.formattedDate}</p>
+                        <p>category: {post.category}</p>                        
                         <p>votes: {post.voteScore}</p>
                         <p>comments: {post.commentCount}</p>
                     </div>

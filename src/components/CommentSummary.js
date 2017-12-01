@@ -4,31 +4,31 @@ import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
 
 class CommentSummary extends Component {
-    state = {
-        comment: {}
-    }
+    // state = {
+    //     comment: {}
+    // }
     componentDidMount() {
-        let dateTime = new Date(this.props.comment.timestamp)
-        dateTime = dateTime.toISOString()
+        // let dateTime = new Date(this.props.comment.timestamp)
+        // dateTime = dateTime.toISOString()
 
-        this.setState({
-            comment: this.props.comment,
-            dateTime
-            }
-        )
+        // this.setState({
+        //     comment: this.props.comment,
+        //     dateTime
+        //     }
+        // )
     }
     render() {
-        
+        const { comment } = this.props
         return (
             <div className="comment-summary">
                 <div className="comment-author">
-                    {this.state.comment.author}
+                    {comment.author}
                 </div>
                 <div className="comment-time">
-                    {this.state.dateTime}
+                    {comment.formattedDate}
                 </div>
                 <div className="comment-body">
-                    {this.props.comment.body}
+                    {comment.body}
                 </div>
                 <button className="vote-up icon-btn"><TiThumbsUp size={30} /></button>
                 <button className="vote-down icon-btn"><TiThumbsDown size={30} /></button>

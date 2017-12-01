@@ -16,22 +16,22 @@ class ListComments extends Component {
     componentDidMount() {
         ReadableAPI.getPostComments(this.props.id)
             .then((comments) => {
+                this.props.receivedComments(comments)
+                console.log('props for listcomments', this.props)
                 this.setState({
-                    comments: comments,
                     loadingComments: false,
                 })
-                this.props.receivedComments(comments)
             })
     }
 
     render() {
-        const { comments, loadingComments } = this.state
+        const { loadingComments } = this.state
         return (
             <div className='comments-wrapper'>
                 {loadingComments === true
                     ? <Loading delay={200} type='spin' color='#222' className='loading' />
                     : <div>
-                        {comments.map((entry) => (
+                        {this.props.comments.comments.map((entry) => (
                             <CommentSummary key={entry.id} comment={entry}/>
                         ))}
                     </div>
