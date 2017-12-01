@@ -3,6 +3,10 @@ import * as ReadableAPI from '../utils/api';
 import Loading from 'react-loading'
 import CommentSummary from './CommentSummary'
 
+import { connect } from 'react-redux'
+import { handleReceivedComments } from '../actions/actions'
+
+
 class ListComments extends Component {
     state = {
         comments: [],
@@ -16,6 +20,7 @@ class ListComments extends Component {
                     comments: comments,
                     loadingComments: false,
                 })
+                this.props.receivedComments(comments)
             })
     }
 
@@ -37,4 +42,13 @@ class ListComments extends Component {
     }
 }
 
-export default ListComments
+const mapStateToProps = ({ comments }) => {
+    return  {
+        comments: comments,
+    }
+}
+const mapDispatchToProps = (dispatch) => ({
+    receivedComments: (comments) => dispatch(handleReceivedComments(comments))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListComments)

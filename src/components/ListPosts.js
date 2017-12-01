@@ -7,46 +7,31 @@ import { connect } from 'react-redux'
 
 class ListPosts extends Component {
     state = {
-        posts: []
+        sortedPosts: []
     }
     componentDidMount() {
-        if (this.props.category === 'all') {
-            ReadableAPI.getPosts()
-                .then((posts) => {
-                    var sortedPosts = posts.sort(sortBy(this.props.ui.sortBy)).reverse()
+       const { posts, ui, category } = this.props
 
-                    var stampedPosts = sortedPosts.map((post) => {
-                        let dateTime = new Date(post.timestamp)
-                        dateTime = dateTime.toISOString()
-                        post['formattedDate'] = dateTime
-                    })
-
-                    this.setState({
-                        posts: sortedPosts
-                    })
-                })
+        console.log('list posts props posts', posts.posts)
+        if (category === 'all') {
+            var sortedPosts = posts.posts.sort(sortBy(ui.sortBy)).reverse()
+            this.setState({
+                sortedPosts: sortedPosts
+            })
         } else {
-            ReadableAPI.getCategoryPosts(this.props.category)
-                .then((posts) => {
-                    var sortedPosts = posts.sort(sortBy(this.props.ui.sortBy)).reverse()
-                    var stampedPosts = sortedPosts.map((post) => {
-                        let dateTime = new Date(post.timestamp)
-                        dateTime = dateTime.toISOString()
-                        post['formattedDate'] = dateTime
-                    }
+            var categoryPosts = posts.posts.filter((post) => (post.category === this.props.category))
+            var sortedPosts = categoryPosts.sort(sortBy(ui.sortBy)).reverse()
 
-                    )
-                    this.setState({
-                        posts: sortedPosts
-                    })
-                })
+            this.setState({
+                sortedPosts: sortedPosts
+            })
         }
     }
 
     changeSort = (sortType) => {
-        var sortedPosts = this.state.posts.sort(sortBy(sortType)).reverse()
+        var sortedPosts = this.state.sortedPosts.sort(sortBy(sortType)).reverse()
         this.setState({
-            posts: sortedPosts
+            sortedPosts: sortedPosts
         })
     }
 
@@ -55,7 +40,7 @@ class ListPosts extends Component {
         return (
             <div className='posts-list'>
                 <FilterBy changeSort={this.changeSort} />
-                {this.state.posts.map((entry) => (
+                {this.state.sortedPosts.map((entry) => (
                     <PostSummary key={entry.id} post={entry} />
                 ))}
             </div>
@@ -63,9 +48,10 @@ class ListPosts extends Component {
         )
     }
 }
-const mapStateToProps = ({ ui }) => { //grabs from the store and makes available as props
+const mapStateToProps = ({ ui, posts }) => { //grabs from the store and makes available as props
     return {
-        ui: ui
+        ui,
+        posts,
     }
 }
 

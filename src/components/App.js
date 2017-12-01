@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import logo from '../images/logo.png';
 import '../App.css'
-import { Route, withRouter } from 'react-router-dom'
+import { Route, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleReceivedPosts, handleReceivedCategories, createPost } from '../actions/actions'
 
@@ -25,9 +25,9 @@ class App extends Component {
     ReadableAPI.getPosts() //grab data from the api
       .then((posts) => {
 
-        this.setState({
-          posts: posts //set the results to local (component) state TODO: see if you can kill this and only use app state (as props)
-        })
+        // this.setState({
+        //   posts: posts //set the results to local (component) state TODO: see if you can kill this and only use app state (as props)
+        // })
 
         this.props.receivedPosts(posts) //now send the data to the function we have from mapDispatchToPros which wraps the app
         //This function comes from the actions
@@ -39,7 +39,6 @@ class App extends Component {
       })
       
       this.props.receivedCategories(categories)
-       //TODO, send these up to app state
     })
   }
 
@@ -53,6 +52,9 @@ class App extends Component {
           <Navbar categories={this.state.categories}></Navbar>
         </header>
         <div className="App-body container">
+          {/* <Route exact path=''render= {() => (
+              <Redirect from='/' to='/all'/>
+            )}/>           */}
           <Route exact path='/all' render={() => (
             <ListPosts category='all' posts={posts.posts} />
           )} />
@@ -64,7 +66,7 @@ class App extends Component {
               <ListPosts category={category.name} />
             )} />
           ))}
-          {this.state.posts.map((entry) => (
+          {posts.posts.map((entry) => (
             <Route path={`/post-${entry.id}`} key={`post-${entry.id}`} render={() => (
               <div>
                 <PostDetails post={entry} />

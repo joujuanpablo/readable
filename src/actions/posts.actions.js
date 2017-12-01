@@ -1,3 +1,4 @@
+import format from 'date-fns/format'
 export const CREATE_POST = 'CREATE_POST'
 export const VOTE_ON_POST = 'VOTE_ON_POST'
 export const EDIT_POST = 'EDIT_POST'
@@ -14,8 +15,7 @@ export const handleReceivedPosts = (posts) => {
 
     const newPosts = posts.map((post) => {
 
-        let dateTime = new Date(post.timestamp)
-        dateTime = dateTime.toISOString()
+        let dateTime = format(new Date(post.timestamp), "DD/MM/YYYY HH:mm")
 
         return {
             ...post,
