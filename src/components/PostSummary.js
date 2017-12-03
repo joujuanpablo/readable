@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 class PostSummary extends Component {
     render() {
         const { post } = this.props
+        console.log('postsummary');
         return (
             <div className='post-summary-wrapper'>
                 <Link to={`/post-${post.id}`} className='post-summary btn btn-outline-info '>

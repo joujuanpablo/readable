@@ -16,23 +16,17 @@ import PostDetails from './PostDetails'
 
 
 class App extends Component {
-  state = {
-    posts: [],
-    comments: [],
-  }
 
   componentDidMount() {
-    console.log('the posts in props on app.js', this.props.posts)
     ReadableAPI.getPosts()
     .then((Posts) => {
-
         this.props.receivedPosts(Posts)
 
     })
   }
 
   render() {
-    const { posts, categories } = this.props
+    const { categories, posts } = this.props
     return (
       <div className="App">
         <header className="App-header">
@@ -45,7 +39,7 @@ class App extends Component {
               <Redirect from='/' to='/all'/>
             )}/>           */}
           <Route exact path='/all' render={() => (
-            <ListPosts category='all' posts={posts.posts} />
+            <ListPosts category='all' />
           )} />
           <Route path='/create' render={() => (
             <CreatePost />
@@ -55,10 +49,10 @@ class App extends Component {
               <ListPosts category={category.name} />
             )} />
           ))}
-          {posts.posts.map((entry) => (
-            <Route path={`/post-${entry.id}`} key={`post-${entry.id}`} render={() => (
+          {posts.map((post) => (
+            <Route path={`/post-${post.id}`} key={`post-${post.id}`} render={() => (
               <div>
-                <PostDetails post={entry} />
+                <PostDetails post={post} />
               </div>
             )} />
           ))}

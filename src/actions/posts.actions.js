@@ -13,7 +13,6 @@ export const RECEIVED_POSTS = 'RECEIVED_POSTS'
 
 export const handleReceivedPosts = (posts) => {
     //handleReceivedPosts reformats the data a bit before we send it off to the action and then the reducer and then the store
-
     const newPosts = posts.map((post) => {
 
         let dateTime = format(new Date(post.timestamp), "DD/MM/YYYY HH:mm")
@@ -23,7 +22,6 @@ export const handleReceivedPosts = (posts) => {
             formattedDate: dateTime
         }
     })
-    console.log('newPosts', newPosts)
     return receivedPosts(newPosts);
 }
 
@@ -52,7 +50,6 @@ export function createPost({ id, timestamp, title, body, author, category }) {
 }
 
 export function voteOnPost(vote) {
-    console.log('voteOnPost action processing', vote)
     return {
         type: VOTE_ON_POST,
         payload: {

@@ -8,13 +8,13 @@ import { handleReceivedPosts } from '../actions/actions'
 class ListPosts extends Component {
 
     render() {
-
+        const sortedList = this.props.posts.sort(sortBy(this.props.ui.sortBy)).reverse();
         return (
             <div className='posts-list'>
                 <FilterBy />
                 {this.props.category === 'all'
-                    ? this.props.posts.posts.sort(sortBy(this.props.ui.sortBy)).reverse().map((entry) => (<PostSummary key={entry.id} post={entry} />))
-                    : this.props.posts.posts.filter((post) => (post.category === this.props.category)).sort(sortBy(this.props.ui.sortBy)).reverse().map((entry) => (<PostSummary key={entry.id} post={entry} />))
+                    ? sortedList.map(post => <PostSummary key={post.id} post={post} />)
+                    : sortedList.filter(post => post.category === this.props.category).map(entry => <PostSummary key={entry.id} post={entry} />)
                 }
             </div>
 

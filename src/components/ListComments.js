@@ -17,7 +17,6 @@ class ListComments extends Component {
         ReadableAPI.getPostComments(this.props.id)
             .then((comments) => {
                 this.props.receivedComments(comments)
-                console.log('props for listcomments', this.props)
                 this.setState({
                     loadingComments: false,
                 })

@@ -8,7 +8,6 @@ export const handleReceivedComments= (comments) => {
     //return receivedComments(capitalizedCategories)//now send it to the action creator
 
     const newComments = comments.map((comment) => {
-        console.log('comment', comment)
         let dateTime = format(new Date(comment.timestamp), "DD/MM/YYYY HH:mm")
 
         return {
@@ -16,7 +15,6 @@ export const handleReceivedComments= (comments) => {
             formattedDate: dateTime
         }
     })
-    console.log('newComments', newComments)
     return receivedComments(newComments);
 }
 
