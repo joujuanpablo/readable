@@ -4,7 +4,7 @@ import '../App.css'
 import { Route, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/api';
-import { handleReceivedPosts } from '../actions/actions'
+import { handleReceivedPosts, voteOnPost } from '../actions/actions'
 
 
 
@@ -77,7 +77,8 @@ const mapStateToProps = ({ posts, ui, categories }) => { //grabs from the store 
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts))
+  receivedPosts: (posts) => dispatch(handleReceivedPosts(posts)),
+  votePost: (data) => dispatch(voteOnPost(data)),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

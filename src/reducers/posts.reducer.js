@@ -25,9 +25,15 @@ export default (state = initialState, action) => {
                 }
             }
         case VOTE_ON_POST:
+            console.log('received posts action-payload', action.payload)
             return {
-                // ...state,
-                // [recipe.label]: recipe
+                ...state,
+                posts: {
+                    posts: {
+                        ...[action.payload.id],
+                        voteScore: + action.payload.increment
+                    }
+                }
             }
         case EDIT_POST:
             return {

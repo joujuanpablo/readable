@@ -30,7 +30,7 @@ class PostForm extends Component {
                         <textarea className='form-control post-form--content form-control' type="text" placeholder={content} />
                     </div>
                     <div className='form-group'>
-                        <button className='form-control post-form-field'>Post</button>
+                        <button className='form-control post-form-field btn btn-outline-info'>Post</button>
                     </div>
 
                 </form>

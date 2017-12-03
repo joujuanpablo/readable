@@ -43,7 +43,7 @@ export const getPostDetails = (id) =>
 
 
 export const postVote = (id, option) =>
-    fetch(`${api}/posts/:${id}`, {
+    fetch(`${api}/posts/${id}`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -51,7 +51,7 @@ export const postVote = (id, option) =>
         },
         body: JSON.stringify({ option }) //option should be either "upVote" or "downVote".
     }).then(res => res.json())
-    .then(data => data.postVote)
+    .then(data => data)
     .catch(err => console.log('ERROR', err))
 
 export const editPost = (id, title, body) =>

@@ -1,6 +1,7 @@
 import format from 'date-fns/format'
 export const CREATE_POST = 'CREATE_POST'
 export const VOTE_ON_POST = 'VOTE_ON_POST'
+
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 
@@ -50,12 +51,14 @@ export function createPost({ id, timestamp, title, body, author, category }) {
     }
 }
 
-export function voteOnPost(id, option) {
+export function voteOnPost(vote) {
+    console.log('voteOnPost action processing', vote)
     return {
-        type: VOTE_ON_COMMENT,
-        id,
-        option,
-
+        type: VOTE_ON_POST,
+        payload: {
+            id: vote.id,
+            increment: vote.option === 'upVote' ? 1 : -1
+        }
     }
 }
 
