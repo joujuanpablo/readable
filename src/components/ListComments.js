@@ -9,7 +9,6 @@ import { handleReceivedComments } from '../actions/actions'
 
 class ListComments extends Component {
     state = {
-        comments: [],
         loadingComments: true,
     }
 
@@ -25,12 +24,13 @@ class ListComments extends Component {
 
     render() {
         const { loadingComments } = this.state
+        const { comments } = this.props
         return (
             <div className='comments-wrapper'>
                 {loadingComments === true
                     ? <Loading delay={200} type='spin' color='#222' className='loading' />
                     : <div>
-                        {this.props.comments.comments.map((entry) => (
+                        {comments.map((entry) => (
                             <CommentSummary key={entry.id} comment={entry}/>
                         ))}
                     </div>

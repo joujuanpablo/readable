@@ -8,12 +8,6 @@ import { handleReceivedCategories } from '../actions/actions'
 
 class Navbar extends Component {
 
-    componentDidMount() {
-        ReadableAPI.getCategories().then((categories) => {
-            this.props.receivedCategories(categories)
-        })
-    }
-
     render() {
         return (
             <nav className='navbar navbar-expand-lg navbar-light bg-light rounded container'>
@@ -24,7 +18,7 @@ class Navbar extends Component {
                     <ul className='navbar-nav' onSelect={this.handleSelect} >
                          <li key="all" className='nav-item'><NavLink className='nav-link' to='/all'>All Posts</NavLink></li>
                         {
-                            this.props.categories.capitalizedCategories.map((category) => (
+                            this.props.categories.map((category) => (
                                 <li key={category} className='nav-item'><NavLink className='nav-link' to={`/${category}`}>{category}</NavLink></li>
                             ))
                         }
@@ -35,14 +29,5 @@ class Navbar extends Component {
         )
     }
 }
-const mapStateToProps = ({ categories}) =>  {
-    return {
-        categories,
-    } 
-}
 
-const mapDispatchToProps = (dispatch) => ({
-    receivedCategories: (categories) => dispatch(handleReceivedCategories(categories))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default Navbar

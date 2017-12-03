@@ -4,7 +4,7 @@ import '../App.css'
 import { Route, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/api';
-import { handleReceivedPosts, voteOnPost } from '../actions/actions'
+import { handleReceivedPosts, handleReceivedCategories, voteOnPost } from '../actions/actions'
 
 
 
@@ -18,21 +18,25 @@ import PostDetails from './PostDetails'
 class App extends Component {
 
   componentDidMount() {
+    ReadableAPI.getCategories().then((categories) => {
+      this.props.receivedCategories(categories)
+    })
     ReadableAPI.getPosts()
-    .then((Posts) => {
+      .then((Posts) => {
         this.props.receivedPosts(Posts)
 
-    })
+      })
   }
 
   render() {
     const { categories, posts } = this.props
+    console.log(categories)
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Readable</h1>
-          <Navbar></Navbar>
+          <Navbar categories={categories}></Navbar>
         </header>
         <div className="App-body container">
           {/* <Route exact path=''render= {() => (
@@ -44,9 +48,9 @@ class App extends Component {
           <Route path='/create' render={() => (
             <CreatePost />
           )} />
-          {categories.categories.map((category) => (
-            <Route exact path={`/${category.name}`} key={category.name} render={() => (
-              <ListPosts category={category.name} />
+          {categories.map((category) => (
+            <Route exact path={`/${category}`} key={category} render={() => (
+              <ListPosts category={category} />
             )} />
           ))}
           {posts.map((post) => (
@@ -73,6 +77,7 @@ const mapStateToProps = ({ posts, ui, categories }) => { //grabs from the store 
 const mapDispatchToProps = (dispatch) => ({
   receivedPosts: (posts) => dispatch(handleReceivedPosts(posts)),
   votePost: (data) => dispatch(voteOnPost(data)),
+  receivedCategories: (categories) => dispatch(handleReceivedCategories(categories))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -21,16 +21,18 @@ export default (state = initialState, action) => {
                 }
             }
         case VOTE_ON_POST:
-            // state.posts.find((post) => post.id === action.payload.id)
-            return {
-                ...state,
-                posts: {
-                    posts: {
-                        ...[action.payload.id],
-                        voteScore: + action.payload.increment
+            const updatedItems = state.map(item => {
+                if (item.id === action.payload.id) {
+                    return {
+                        ...item,
+                        voteScore: item.voteScore + action.payload.increment
                     }
-                }
-            }
+                } 
+                return item
+            })
+
+            return updatedItems
+
         case EDIT_POST:
             return {
                 // ...state,

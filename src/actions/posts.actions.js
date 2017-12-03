@@ -49,12 +49,12 @@ export function createPost({ id, timestamp, title, body, author, category }) {
     }
 }
 
-export function voteOnPost(vote) {
+export function voteOnPost(post) {
     return {
         type: VOTE_ON_POST,
         payload: {
-            id: vote.id,
-            increment: vote.option === 'upVote' ? 1 : -1
+            id: post.id,
+            increment: post.option === 'upVote' ? 1 : -1
         }
     }
 }

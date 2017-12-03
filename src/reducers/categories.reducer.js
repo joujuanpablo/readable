@@ -1,18 +1,14 @@
 import { RECEIVED_CATEGORIES } from '../actions/actions'
 
-const initialState = {
-    categories: [],
-    capitalizedCategories: [],
-}
+const initialState = []
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case RECEIVED_CATEGORIES:
-            return {
+            return [
                 ...state,
-                categories: action.payload.categories,
-                capitalizedCategories: action.payload.capitalizedCategories,
-            }
+                ...action.payload
+            ]
 
         default: 
             return state 
