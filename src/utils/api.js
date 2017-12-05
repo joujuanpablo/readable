@@ -101,7 +101,7 @@ export const getCommentDetails = (id) =>
     .catch(err => console.log('ERROR', err))
 
 export const commentVote = (id, option) =>
-    fetch(`${api}/comments/:${id}`, {
+    fetch(`${api}/comments/${id}`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -109,7 +109,7 @@ export const commentVote = (id, option) =>
         },
         body: JSON.stringify({ option }) //option should be either "upVote" or "downVote".
     }).then(res => res.json())
-    .then(data => data.commentVote)
+    .then(data => data)
     .catch(err => console.log('ERROR', err))
 
 export const editComment = (id, timestamp, body) =>

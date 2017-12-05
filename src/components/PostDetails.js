@@ -53,8 +53,8 @@ class PostDetails extends Component {
 }
 const mapStateToProps = ({ posts, ui }) => {
     return {
-        posts: posts,
-        ui: ui
+        posts,
+        ui
     }
 }
 const mapDispatchToProps = (dispatch) => ({

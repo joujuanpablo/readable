@@ -1,10 +1,9 @@
-import { capitalize } from '../utils/helpers'
+
 export const RECEIVED_CATEGORIES = 'RECEIVED_CATEGORIES'
 
 export const handleReceivedCategories= (categories) => {
-    //this is where we can do the capitalize bit
     const transformedCategories = categories.map((category) => category.name)
-    return receivedCategories(transformedCategories)//now send it to the action creator
+    return receivedCategories(transformedCategories)
 }
 
 export function receivedCategories(categories) {

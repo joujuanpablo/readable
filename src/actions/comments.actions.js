@@ -1,5 +1,6 @@
 import format from 'date-fns/format'
 export const RECEIVED_COMMENTS = 'RECEIVED_COMMENTS'
+export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
 
 export const handleReceivedComments= (comments) => {
     //this is where we can do the capitalize bit
@@ -22,5 +23,15 @@ export function receivedComments(comments) {
     return {
         type: RECEIVED_COMMENTS,
         payload: comments,
+    }
+}
+
+export function voteOnComment(comment) {
+    return {
+        type: VOTE_ON_COMMENT,
+        payload: {
+            id: comment.id,
+            increment: comment.option === 'upVote' ? 1 : -1
+        }
     }
 }
