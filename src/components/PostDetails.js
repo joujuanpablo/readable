@@ -7,18 +7,33 @@ import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
 import * as ReadableAPI from '../utils/api'
 import { voteOnPost } from '../actions/actions'
+import Modal from 'react-modal'
+import PostForm from './PostForm'
 
 class PostDetails extends Component {
-    componentDidMount() {
-        console.log('post-details props', this.props)
+    state = {
+        postModalOpen: false,
+    }
+
+    componentWillMount() {
+        Modal.setAppElement('body');
     }
 
     handlePostVote = (vote) => {
         ReadableAPI.postVote(vote.id, vote.option).then(
             this.props.votePost(vote)
-        ) 
+        )
     }
-    
+
+    closePostsModal = () => this.setState(() => ({ postModalOpen: false }))
+    openPostsModal = () => this.setState(() => ({ postModalOpen: true }))
+
+    submitEditPost = (id, newTimestamp, title, body, author, category) => {
+        ReadableAPI.editPost(id, title, body)
+            .then(
+            window.alert('your post edits have been submitted!')
+            )
+    }
     render() {
         const { post, voteOnPost } = this.props
         return (
@@ -35,8 +50,8 @@ class PostDetails extends Component {
                     </div>
                     <hr />
                     <button className="vote-up icon-btn"><TiThumbsUp size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'upVote' })} /></button>
-                    <button className="vote-down icon-btn"><TiThumbsDown size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'downVote' })}/></button>
-                    <button className="edit icon-btn"><TiEdit size={35} /></button>
+                    <button className="vote-down icon-btn"><TiThumbsDown size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'downVote' })} /></button>
+                    <button className="edit icon-btn" onClick={() => this.openPostsModal()}><TiEdit size={35} /></button>
                 </div>
                 <div className="post-detail-comments">
                     <ListComments id={this.props.post.id} />
@@ -44,6 +59,15 @@ class PostDetails extends Component {
                         <input type="text" placeholder="write a comment..." />
                     </div>
                 </div>
+                <Modal
+                    className='modal'
+                    overlayClassName='overlay'
+                    isOpen={this.state.postModalOpen}
+                    onRequestClose={this.closePostsModal}
+                >
+                    <h2>Edit Post</h2>
+                    <PostForm post={post} submit={this.submitEditPost} />
+                </Modal>
             </div>
 
         )
@@ -59,6 +83,6 @@ const mapStateToProps = ({ posts, ui }) => {
 }
 const mapDispatchToProps = (dispatch) => ({
     votePost: (data) => dispatch(voteOnPost(data)),
-  })
+})
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetails))  

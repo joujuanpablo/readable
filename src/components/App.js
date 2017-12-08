@@ -30,7 +30,6 @@ class App extends Component {
 
   render() {
     const { categories, posts } = this.props
-    console.log(categories)
     return (
       <div className="App">
         <header className="App-header">

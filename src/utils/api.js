@@ -32,7 +32,7 @@ export const postNewPost = (id, timestamp, title, body, author, category) =>
         },
         body: JSON.stringify({ id, timestamp, title, body, author, category })
     }).then(res => res.json())
-    .then(data => data.newPost)
+    .then(data => data)
     .catch(err => console.log('ERROR', err))
 
 export const getPostDetails = (id) =>
@@ -55,7 +55,7 @@ export const postVote = (id, option) =>
     .catch(err => console.log('ERROR', err))
 
 export const editPost = (id, title, body) =>
-    fetch(`${api}/posts/:${id}`, {
+    fetch(`${api}/posts/${id}`, {
         method: 'PUT',
         headers: {
             ...headers,
