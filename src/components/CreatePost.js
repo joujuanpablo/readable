@@ -12,6 +12,7 @@ class CreatePost extends Component {
     render(){
         return(
             <div className='create-post'>
+                <h2>Create post</h2>
                 <PostForm submit={this.submitCreatePost}/>
             </div>
         )

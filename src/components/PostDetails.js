@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import ListComments from './ListComments'
-import TiThumbsUp from 'react-icons/lib/ti/thumbs-up';
+import TiThumbsUp from 'react-icons/lib/ti/thumbs-up'
 import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
+import FaTrash from 'react-icons/lib/fa/trash-o'
 import * as ReadableAPI from '../utils/api'
-import { voteOnPost } from '../actions/actions'
+import { voteOnPost, deletePost } from '../actions/actions'
 import Modal from 'react-modal'
 import PostForm from './PostForm'
 
@@ -17,6 +18,10 @@ class PostDetails extends Component {
 
     componentWillMount() {
         Modal.setAppElement('body');
+    }
+
+    componentWillUnmount() {
+        this.props.history.push('/all')
     }
 
     handlePostVote = (vote) => {
@@ -31,9 +36,18 @@ class PostDetails extends Component {
     submitEditPost = (id, newTimestamp, title, body, author, category) => {
         ReadableAPI.editPost(id, title, body)
             .then(
-            window.alert('your post edits have been submitted!')
+            window.alert('Your post edits have been submitted')
             )
     }
+
+    handleDeletePost = (id) => {
+        ReadableAPI.deletePost(id)
+            .then(
+            window.alert('This post has been deleted!'),
+            this.props.deletePost(id)
+            )
+    }
+
     render() {
         const { post, voteOnPost } = this.props
         return (
@@ -49,9 +63,10 @@ class PostDetails extends Component {
                         <p>{post.body}</p>
                     </div>
                     <hr />
-                    <button className="vote-up icon-btn"><TiThumbsUp size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'upVote' })} /></button>
-                    <button className="vote-down icon-btn"><TiThumbsDown size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'downVote' })} /></button>
-                    <button className="edit icon-btn" onClick={() => this.openPostsModal()}><TiEdit size={35} /></button>
+                    <button title='vote up' className="vote-up icon-btn"><TiThumbsUp size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'upVote' })} /></button>
+                    <button title='vote down' className="vote-down icon-btn"><TiThumbsDown size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'downVote' })} /></button>
+                    <button title='edit post' className="edit icon-btn" onClick={() => this.openPostsModal()}><TiEdit size={35} /></button>
+                    <button title='delete post' className="delete icon-btn" onClick={() => this.handleDeletePost(post.id)}><FaTrash size={35} /></button>
                 </div>
                 <div className="post-detail-comments">
                     <ListComments id={this.props.post.id} />
@@ -83,6 +98,7 @@ const mapStateToProps = ({ posts, ui }) => {
 }
 const mapDispatchToProps = (dispatch) => ({
     votePost: (data) => dispatch(voteOnPost(data)),
+    deletePost: (data) => dispatch(deletePost(data))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetails))  

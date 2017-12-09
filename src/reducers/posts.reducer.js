@@ -39,10 +39,8 @@ export default (state = initialState, action) => {
                 // [recipe.label]: recipe
             }
         case DELETE_POST:
-            return {
-                // ...state,
-                // [recipe.label]: recipe
-            }
+            const updatedPostList = state.filter(post => post.id !== action.payload.id)
+            return updatedPostList
         default:
             return state
     }

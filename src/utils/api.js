@@ -66,7 +66,7 @@ export const editPost = (id, title, body) =>
     .catch(err => console.log('ERROR', err))
 
 export const deletePost = (id) =>
-    fetch(`${api}/posts/:${id}`, {
+    fetch(`${api}/posts/${id}`, {
         method: 'DELETE',
         headers: {
             ...headers,
