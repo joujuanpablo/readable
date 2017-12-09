@@ -125,7 +125,7 @@ export const editComment = (id, timestamp, body) =>
 
 
 export const deleteComment = (id) =>
-    fetch(`${api}/comments/:${id}`, {
+    fetch(`${api}/comments/${id}`, {
         method: 'DELETE',
         headers: {
             ...headers,

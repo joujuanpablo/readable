@@ -2,6 +2,7 @@ import format from 'date-fns/format'
 export const RECEIVED_COMMENTS = 'RECEIVED_COMMENTS'
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
 export const CREATE_COMMENT = 'CREATE_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export const handleReceivedComments= (comments) => {
 
@@ -46,5 +47,12 @@ export function createComment(comment) {
             formattedDate,
         }
 
+    }
+}
+
+export function deleteComment(id) {
+    return {
+        type: DELETE_COMMENT,
+        payload: id
     }
 }
