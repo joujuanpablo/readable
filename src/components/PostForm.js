@@ -87,7 +87,7 @@ class PostForm extends Component {
                     </div>
                     <div className='form-group'>
                         <label htmlFor="postAuthor">Post author</label>
-                        <input className='form-control post-form--author post-form-field' disabled = {(this.props.post) ? "disabled" : ""} type="text" placeholder='author' value={author} onChange={event => this.updateAuthor(event.target.value)}/>
+                        <input className='form-control post-form--author post-form-field' disabled={(this.props.comment) ? "disabled" : ""} type="text" placeholder='author' value={author} onChange={event => this.updateAuthor(event.target.value)}/>
                         <small className='form-text text-muted'>This can be whatever you like since this is an annonymous app.</small>
                     </div>
 

@@ -1,4 +1,4 @@
-import { RECEIVED_COMMENTS, VOTE_ON_COMMENT, CREATE_COMMENT, DELETE_COMMENT } from '../actions/actions'
+import { RECEIVED_COMMENTS, VOTE_ON_COMMENT, CREATE_COMMENT, DELETE_COMMENT, EDIT_COMMENT } from '../actions/actions'
 
 const initialState = []
 
@@ -28,6 +28,14 @@ export default (state = { initialState }, action) => {
         case DELETE_COMMENT:
             const updatedComments = state.filter(comment => comment.id !== action.payload)
             return updatedComments
+        case EDIT_COMMENT:
+            const editedComments = state.map(comment => {
+                if (comment.id === action.payload.id){
+                    return action.payload
+                }
+                return comment
+            })
+            return editedComments
 
         default:
             return state

@@ -113,7 +113,7 @@ export const commentVote = (id, option) =>
     .catch(err => console.log('ERROR', err))
 
 export const editComment = (id, timestamp, body) =>
-    fetch(`${api}/posts/:${id}`, {
+    fetch(`${api}/comments/${id}`, {
         method: 'PUT',
         headers: {
             ...headers,

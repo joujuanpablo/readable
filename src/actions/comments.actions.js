@@ -3,6 +3,7 @@ export const RECEIVED_COMMENTS = 'RECEIVED_COMMENTS'
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
 export const CREATE_COMMENT = 'CREATE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 export const handleReceivedComments= (comments) => {
 
@@ -54,5 +55,12 @@ export function deleteComment(id) {
     return {
         type: DELETE_COMMENT,
         payload: id
+    }
+}
+
+export function editComment(comment) {
+    return {
+        type: EDIT_COMMENT,
+        payload: comment,
     }
 }

@@ -5,10 +5,16 @@ import TiThumbsUp from 'react-icons/lib/ti/thumbs-up'
 import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import FaTrash from 'react-icons/lib/fa/trash-o'
 import TiEdit from 'react-icons/lib/ti/edit'
-import { voteOnComment, deleteComment } from '../actions/actions'
+import { voteOnComment, deleteComment, editComment } from '../actions/actions'
 import * as ReadableAPI from '../utils/api'
+import Modal from 'react-modal'
+import CommentForm from './CommentForm'
 
 class CommentSummary extends Component {
+
+    state = {
+        editModalOpen: false,
+    }
 
     handleCommentVote = (vote) => {
         ReadableAPI.commentVote(vote.id, vote.option)
@@ -24,6 +30,22 @@ class CommentSummary extends Component {
             this.props.deleteComment(id)
         )
     }
+
+    handleCommentEdit = () => {
+        this.setState({editModalOpen: true})
+    }
+
+    submitEditComment = (id, newTimestamp, body, author, parentId, formattedDate, voteScore) => {
+        ReadableAPI.editComment(id, newTimestamp, body)
+        .then(
+            this.props.editComment({id, newTimestamp, body, author, parentId, formattedDate, voteScore}),
+            this.editModalClose()
+        )
+        
+    }
+
+    editModalClose = () => this.setState(() => ({ editModalOpen: false }))
+    editModalOpen = () => this.setState(() => ({ editModalOpen: true }))
 
     render() {
         const { comment } = this.props
@@ -41,11 +63,18 @@ class CommentSummary extends Component {
                 <div className="comment-body">
                     {comment.body}
                 </div>
-                <button className="vote-up icon-btn"><TiThumbsUp size={30} onClick={() => this.handleCommentVote({ id: comment.id, option: 'upVote' })}/></button>
-                <button className="vote-down icon-btn"><TiThumbsDown size={30} onClick={() => this.handleCommentVote({ id: comment.id, option: 'downVote' })}/></button>
-                <button className="edit icon-btn"><TiEdit size={30} /></button>
+                <button className="vote-up icon-btn" onClick={() => this.handleCommentVote({ id: comment.id, option: 'upVote' })}><TiThumbsUp size={30} /></button>
+                <button className="vote-down icon-btn" onClick={() => this.handleCommentVote({ id: comment.id, option: 'downVote' })}><TiThumbsDown size={30}/></button>
+                <button className="edit icon-btn" onClick={() => this.handleCommentEdit(comment)}><TiEdit size={30} /></button>
                 <button title='delete comment' className="delete icon-btn" onClick={() => this.handleDeleteComment(comment.id)}><FaTrash size={30} /></button>
-
+                <Modal
+                    className='new-comment comment modal'
+                    overlayClassName='overlay'
+                    isOpen={this.state.editModalOpen}
+                    onRequestClose={this.editModalClose}
+                >
+                    <CommentForm type={'Edit comment'} comment={comment} parentId={comment.parentId} submit={this.submitEditComment}/>
+                </Modal>
             </div>
         )
 
@@ -59,7 +88,8 @@ const mapStateProps = ({comments}) => {
 }
 const mapDispatchToProps = (dispatch) => ({
     voteComment: (data) => dispatch(voteOnComment(data)),
-    deleteComment: (data) => dispatch(deleteComment(data))
+    deleteComment: (data) => dispatch(deleteComment(data)),
+    editComment: (data) => dispatch(editComment(data)),
 })
 
 export default withRouter(connect(mapStateProps, mapDispatchToProps)(CommentSummary))
