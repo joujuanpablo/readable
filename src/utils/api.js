@@ -91,7 +91,7 @@ export const addComment = (id, timestamp, body, author, parentId) =>
         },
         body: JSON.stringify({ id, timestamp, body, author, parentId })
     }).then(res => res.json())
-    .then(data => data.addComment)
+    .then(data => data)
     .catch(err => console.log('ERROR', err))
 
 export const getCommentDetails = (id) =>

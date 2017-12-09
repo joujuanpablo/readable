@@ -7,13 +7,15 @@ import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
 import FaTrash from 'react-icons/lib/fa/trash-o'
 import * as ReadableAPI from '../utils/api'
-import { voteOnPost, deletePost } from '../actions/actions'
+import { voteOnPost, deletePost, createComment } from '../actions/actions'
 import Modal from 'react-modal'
 import PostForm from './PostForm'
+import CommentForm from './CommentForm'
 
 class PostDetails extends Component {
     state = {
         postModalOpen: false,
+        commentModalOpen: false,
     }
 
     componentWillMount() {
@@ -33,9 +35,13 @@ class PostDetails extends Component {
     closePostsModal = () => this.setState(() => ({ postModalOpen: false }))
     openPostsModal = () => this.setState(() => ({ postModalOpen: true }))
 
+    openCommentModal = () => this.setState(() => ({ commentModalOpen: true}))
+    closeCommentModal = () => this.setState(() => ({ commentModalOpen: false}))
+
     submitEditPost = (id, newTimestamp, title, body, author, category) => {
         ReadableAPI.editPost(id, title, body)
             .then(
+            this.closePostsModal(),
             window.alert('Your post edits have been submitted')
             )
     }
@@ -46,6 +52,14 @@ class PostDetails extends Component {
             window.alert('This post has been deleted!'),
             this.props.deletePost(id)
             )
+    }
+
+    submitCreateComment = (id, newTimestamp, body, author, parentId, formattedDate) => {
+        ReadableAPI.addComment(id, newTimestamp, body, author, parentId)
+        .then(
+            this.props.createComment({id, newTimestamp, body, author, parentId, formattedDate}),
+            this.closeCommentModal()
+        )
     }
 
     render() {
@@ -71,7 +85,7 @@ class PostDetails extends Component {
                 <div className="post-detail-comments">
                     <ListComments id={this.props.post.id} />
                     <div className="add-comment">
-                        <input type="text" placeholder="write a comment..." />
+                        <input type="text" onClick={() => this.openCommentModal()} placeholder="write a comment..." />
                     </div>
                 </div>
                 <Modal
@@ -83,6 +97,15 @@ class PostDetails extends Component {
                     <h2>Edit Post</h2>
                     <PostForm post={post} submit={this.submitEditPost} />
                 </Modal>
+                <Modal
+                    className='new-comment comment modal'
+                    overlayClassName='overlay'
+                    isOpen={this.state.commentModalOpen}
+                    onRequestClose={this.closeCommentModal}
+                >
+                    <CommentForm type={'Create comment'} parentId={post.id} submit={this.submitCreateComment}/>
+                </Modal>
+
             </div>
 
         )
@@ -90,15 +113,17 @@ class PostDetails extends Component {
 
     }
 }
-const mapStateToProps = ({ posts, ui }) => {
+const mapStateToProps = ({ posts, ui, comments }) => {
     return {
         posts,
-        ui
+        ui,
+        comments,
     }
 }
 const mapDispatchToProps = (dispatch) => ({
     votePost: (data) => dispatch(voteOnPost(data)),
-    deletePost: (data) => dispatch(deletePost(data))
+    deletePost: (data) => dispatch(deletePost(data)),
+    createComment: (data) => dispatch(createComment(data))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetails))  

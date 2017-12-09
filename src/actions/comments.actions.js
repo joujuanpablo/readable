@@ -1,10 +1,11 @@
 import format from 'date-fns/format'
 export const RECEIVED_COMMENTS = 'RECEIVED_COMMENTS'
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT'
+export const CREATE_COMMENT = 'CREATE_COMMENT'
 
 export const handleReceivedComments= (comments) => {
 
-    const newComments = comments.map((comment) => {
+    const formattedComments = comments.map((comment) => {
         let dateTime = format(new Date(comment.timestamp), "DD/MM/YYYY HH:mm")
 
         return {
@@ -12,7 +13,7 @@ export const handleReceivedComments= (comments) => {
             formattedDate: dateTime
         }
     })
-    return receivedComments(newComments);
+    return receivedComments(formattedComments);
 }
 
 export function receivedComments(comments) {
@@ -29,5 +30,21 @@ export function voteOnComment(comment) {
             id: comment.id,
             increment: comment.option === 'upVote' ? 1 : -1
         }
+    }
+}
+
+export function createComment(comment) {
+   const {id, newTimestamp, body, author, parentId, formattedDate } = comment
+    return {
+        type: CREATE_COMMENT,
+        payload: {
+            id,
+            parentId,
+            timestamp: newTimestamp,
+            body,
+            author,
+            formattedDate,
+        }
+
     }
 }

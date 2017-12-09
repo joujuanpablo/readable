@@ -1,4 +1,4 @@
-import { RECEIVED_COMMENTS, VOTE_ON_COMMENT } from '../actions/actions'
+import { RECEIVED_COMMENTS, VOTE_ON_COMMENT, CREATE_COMMENT } from '../actions/actions'
 
 const initialState = []
 
@@ -20,6 +20,11 @@ export default (state = { initialState }, action) => {
                 return item
             })
             return updatedItems
+        case CREATE_COMMENT:
+            return [
+                ...state,
+                action.payload
+            ]
 
         default:
             return state
