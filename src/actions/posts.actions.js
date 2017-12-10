@@ -59,12 +59,14 @@ export function voteOnPost(post) {
     }
 }
 
-export function editPost(id, title, body) {
+export function editPost(post) {
     return {
         type: EDIT_POST,
-        id,
-        title,
-        body,
+        payload: {
+            id: post.id,
+            title: post.title,
+            body: post.body,
+        }
     }
 }
 

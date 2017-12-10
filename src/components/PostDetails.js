@@ -7,7 +7,7 @@ import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
 import TiEdit from 'react-icons/lib/ti/edit'
 import FaTrash from 'react-icons/lib/fa/trash-o'
 import * as ReadableAPI from '../utils/api'
-import { voteOnPost, deletePost, createComment } from '../actions/actions'
+import { voteOnPost, deletePost, createComment, editPost } from '../actions/actions'
 import Modal from 'react-modal'
 import PostForm from './PostForm'
 import CommentForm from './CommentForm'
@@ -23,7 +23,8 @@ class PostDetails extends Component {
     }
 
     componentWillUnmount() {
-        this.props.history.push('/all')
+        
+        // this.props.history.push('/all')
     }
 
     handlePostVote = (vote) => {
@@ -41,8 +42,11 @@ class PostDetails extends Component {
     submitEditPost = (id, newTimestamp, title, body, author, category) => {
         ReadableAPI.editPost(id, title, body)
             .then(
-            this.closePostsModal(),
-            window.alert('Your post edits have been submitted')
+                this.props.editPost({id, title, body})
+            )
+            .then( 
+                this.closePostsModal(),
+                window.alert('Your post edits have been submitted')
             )
     }
 
@@ -123,6 +127,7 @@ const mapStateToProps = ({ posts, ui, comments }) => {
 const mapDispatchToProps = (dispatch) => ({
     votePost: (data) => dispatch(voteOnPost(data)),
     deletePost: (data) => dispatch(deletePost(data)),
+    editPost: (data) => dispatch(editPost(data)),
     createComment: (data) => dispatch(createComment(data))
 })
 

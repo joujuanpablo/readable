@@ -70,6 +70,7 @@ class PostForm extends Component {
     }
 
     handleSubmit(e) {
+        (e).preventDefault()
         const { id, title, body, author, category } = this.state.newPost
         const newTimestamp = Date.now()
         this.props.submit(id, newTimestamp, title, body, author, category) 
@@ -87,13 +88,13 @@ class PostForm extends Component {
                     </div>
                     <div className='form-group'>
                         <label htmlFor="postAuthor">Post author</label>
-                        <input className='form-control post-form--author post-form-field' disabled={(this.props.comment) ? "disabled" : ""} type="text" placeholder='author' value={author} onChange={event => this.updateAuthor(event.target.value)}/>
+                        <input className='form-control post-form--author post-form-field' disabled={(this.props.post) ? "disabled" : ""} type="text" placeholder='author' value={author} onChange={event => this.updateAuthor(event.target.value)}/>
                         <small className='form-text text-muted'>This can be whatever you like since this is an annonymous app.</small>
                     </div>
 
                     <div className='form-group'>
                     <label htmlFor="postCategory">Post category</label>
-                        <select className='form-control post-form--category post-form-field' disabled = {(this.props.post) ? "disabled" : ""} value={category} type="text" placeholder='' onChange={event => this.updateCategory(event.target.value)}>
+                        <select className='form-control post-form--category post-form-field' disabled={(this.props.post) ? "disabled" : ""} value={category} type="text" placeholder='' onChange={event => this.updateCategory(event.target.value)}>
                             <option value="">Please Choose a Category</option>
                             <option value="react">React</option>
                             <option value="redux">Redux</option>

@@ -34,10 +34,18 @@ export default (state = initialState, action) => {
             return updatedItems
 
         case EDIT_POST:
-            return {
-                // ...state,
-                // [recipe.label]: recipe
-            }
+            const withEditedPost = state.map(item => {
+                if (item.id === action.payload.id) {
+                    return {
+                        ...item,
+                        title: action.payload.title,
+                        body: action.payload.body,
+                    }
+                }
+                return item
+            })
+            return withEditedPost
+
         case DELETE_POST:
             const updatedPostList = state.filter(post => post.id !== action.payload.id)
             return updatedPostList
