@@ -111,10 +111,7 @@ class PostDetails extends Component {
                 </Modal>
 
             </div>
-
         )
-
-
     }
 }
 const mapStateToProps = ({ posts, ui, comments }) => {

@@ -10,16 +10,12 @@ export default (state = initialState, action) => {
                 ...action.payload
             ]
         case CREATE_POST:
-            const { id, timestamp, title, body, author, category } = action.payload
-            return {
+            return [
                 ...state,
-                [id]: {
-                    ...action.payload,
-                    voteScore: null,
-                    deleted: false,
-                    commentCount: null,
-                }
-            }
+                action.payload
+            ]
+                
+            
         case VOTE_ON_POST:
             const updatedItems = state.map(item => {
                 if (item.id === action.payload.id) {

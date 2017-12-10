@@ -32,19 +32,29 @@ export function receivedPosts(posts) {
     }
 }
 
-export function createPost({ id, timestamp, title, body, author, category }) {
+export const handleCreatedPost = (post) => {
+    let dateTime = format(new Date(post.newTimestamp), "DD/MM/YYYY HH:mm")
+    const newPost = {
+        ...post, 
+        formattedDate: dateTime,
+    }
+    return createPost(newPost);
+}
+
+export function createPost(post) {
     return {
         type: CREATE_POST,
         payload: {
-            id, //these are properties of the action object, not the state. The reducer is in charge of using this info to change the state
-            timestamp,
-            title,
-            body,
-            author,
-            category,
-            // voteScore: 0,
-            // deleted: false,
-            // commentCount: 0, I can put these into reducer
+            id: post.id, 
+            timestamp: post.newTimestamp, 
+            title: post.title, 
+            body: post.body, 
+            author: post.author, 
+            category: post.category,
+            formattedDate: post.formattedDate,
+            voteScore: 0,
+            deleted: false,
+            commentCount: 0,
         }
     }
 }
