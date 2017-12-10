@@ -1,14 +1,15 @@
 # Readable Project
-Readable is a content and comment web app. Users are able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users are also be able to edit and delete posts and comments.
+Readable is a content and comment web app. Users are able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users are also able to edit and delete posts and comments.
 
 ## TL;DR
 
 To get started developing right away:
-Frontend readable app:
+
+Start the frontend readable app:
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
-Backend API- server: 
+Start the backend API- server: 
 * navigate to the api-server repository with `cd api-server`
 * install all project dependencies with `npm install`
 * start the backend server with `npm start`
