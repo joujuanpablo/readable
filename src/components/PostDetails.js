@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import ListComments from './ListComments'
 import TiThumbsUp from 'react-icons/lib/ti/thumbs-up'
 import TiThumbsDown from 'react-icons/lib/ti/thumbs-down'
@@ -16,6 +16,7 @@ class PostDetails extends Component {
     state = {
         postModalOpen: false,
         commentModalOpen: false,
+        postDeleted: true,
     }
 
     componentWillMount() {
@@ -23,8 +24,10 @@ class PostDetails extends Component {
     }
 
     componentWillUnmount() {
-        
-        // this.props.history.push('/all')
+        if (this.state.postDeleted) {
+
+            this.props.history.push('/all')
+        }
     }
 
     handlePostVote = (vote) => {
@@ -54,7 +57,8 @@ class PostDetails extends Component {
         ReadableAPI.deletePost(id)
             .then(
             window.alert('This post has been deleted!'),
-            this.props.deletePost(id)
+            this.props.deletePost(id),
+            this.setState({ postDeleted: true })
             )
     }
 
@@ -67,7 +71,7 @@ class PostDetails extends Component {
     }
 
     render() {
-        const { post, voteOnPost } = this.props
+        const { post } = this.props
         return (
             <div className="post-detail">
                 <div className="post-detail-body">

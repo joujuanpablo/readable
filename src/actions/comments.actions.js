@@ -46,6 +46,7 @@ export function createComment(comment) {
             body,
             author,
             formattedDate,
+            voteScore: 0,
         }
 
     }

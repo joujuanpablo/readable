@@ -24,7 +24,6 @@ class CommentSummary extends Component {
     }
 
     handleDeleteComment = (id) => {
-        console.log('this is the id od the comment', id);
         ReadableAPI.deleteComment(id)
         .then(
             this.props.deleteComment(id)

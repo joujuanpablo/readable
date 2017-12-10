@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import PostForm from './PostForm'
 import { handleCreatedPost } from '../actions/actions'
 import * as ReadableAPI from '../utils/api'
@@ -11,6 +11,9 @@ class CreatePost extends Component {
         .then(
             this.props.createPost({id, newTimestamp, title, body, author, category}),
             window.alert('your post has been submitted!')
+        )
+        .then(
+            this.props.history.push(`/post-${id}`)
         )
     }
     render(){

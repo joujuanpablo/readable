@@ -38,9 +38,9 @@ class App extends Component {
           <Navbar categories={categories}></Navbar>
         </header>
         <div className="App-body container">
-          {/* <Route exact path=''render= {() => (
+          <Route exact path='/'render= {() => (
               <Redirect from='/' to='/all'/>
-            )}/>           */}
+            )}/>
           <Route exact path='/all' render={() => (
             <ListPosts category='all' />
           )} />
