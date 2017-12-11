@@ -9,10 +9,44 @@ import TiEdit from 'react-icons/lib/ti/edit'
 import FaTrash from 'react-icons/lib/fa/trash-o'
 import { voteOnPost, deletePost, createComment, editPost } from '../actions/actions'
 import * as ReadableAPI from '../utils/api'
-
-//delete and vote on post should be fine, for edit you need to take into account the modal
+import Modal from 'react-modal'
+import PostForm from './PostForm'
 
 class PostSummary extends Component {
+    state = {
+        postModalOpen: false,
+    }
+
+    componentWillMount() {
+        Modal.setAppElement('body');
+    }
+
+    handlePostVote = (vote) => {
+        ReadableAPI.postVote(vote.id, vote.option).then(
+            this.props.votePost(vote)
+        )
+    }
+    handleDeletePost = (id) => {
+        ReadableAPI.deletePost(id)
+            .then(
+            window.alert('This post has been deleted!'),
+            this.props.deletePost(id),
+            )
+    }
+    closePostsModal = () => this.setState(() => ({ postModalOpen: false }))
+    openPostsModal = () => this.setState(() => ({ postModalOpen: true }))
+
+    submitEditPost = (id, newTimestamp, title, body, author, category) => {
+        ReadableAPI.editPost(id, title, body)
+            .then(
+                this.props.editPost({id, title, body})
+            )
+            .then( 
+                this.closePostsModal(),
+                window.alert('Your post edits have been submitted')
+            )
+    }
+
     render() {
         const { post } = this.props
         return (
@@ -24,9 +58,9 @@ class PostSummary extends Component {
                         <p className='post-summary-timestamp'>date: {post.formattedDate}</p>
                     </div>
                     <div className='post-stats'>
-                        <p>category: {post.category}</p>
-                        <p>votes: {post.voteScore}</p>
-                        <p>comments: {post.commentCount}</p>
+                        <p>Category: {post.category}</p>
+                        <p>Votes: {post.voteScore}</p>
+                        <p>Comments: {post.commentCount}</p>
                     </div>
                 </Link>
                 <div className='post-buttons'>
@@ -36,6 +70,15 @@ class PostSummary extends Component {
                     <button title='delete post' className="delete icon-btn action-button" onClick={() => this.handleDeletePost(post.id)}><FaTrash size={30} /></button>
 
                 </div>
+                <Modal
+                    className='modal'
+                    overlayClassName='overlay'
+                    isOpen={this.state.postModalOpen}
+                    onRequestClose={this.closePostsModal}
+                >
+                    <h2>Edit Post</h2>
+                    <PostForm post={post} submit={this.submitEditPost} />
+                </Modal>
             </div>
         )
     }

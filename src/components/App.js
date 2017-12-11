@@ -9,10 +9,11 @@ import { handleReceivedPosts, handleReceivedCategories, voteOnPost } from '../ac
 
 
 //Components
-import Navbar from './Navbar';
-import ListPosts from './ListPosts';
-import CreatePost from './CreatePost';
+import Navbar from './Navbar'
+import ListPosts from './ListPosts'
+import CreatePost from './CreatePost'
 import PostDetails from './PostDetails'
+import NotFound from './Notfound'
 
 
 class App extends Component {
@@ -38,22 +39,22 @@ class App extends Component {
           <Navbar categories={categories}></Navbar>
         </header>
         <div className="App-body container">
-          <Route exact path='/'render= {() => (
-              <Redirect from='/' to='/all'/>
-            )}/>
-          <Route exact path='/all' render={() => (
+          <Route exact path='/' render={() => (
+            <Redirect from='/' to='/all' />
+          )} />
+          <Route path='/all' render={() => (
             <ListPosts category='all' />
           )} />
           <Route path='/create' render={() => (
             <CreatePost />
           )} />
           {categories.map((category) => (
-            <Route exact path={`/${category}`} key={category} render={() => (
+            <Route path={`/${category}`} key={category} render={() => (
               <ListPosts category={category} />
             )} />
           ))}
           {posts.map((post) => (
-            <Route path={`/post-${post.id}`} key={`post-${post.id}`} render={() => (
+          <Route path={`/post-${post.id}`} key={`post-${post.id}`} render={() => (
               <div>
                 <PostDetails post={post} />
               </div>

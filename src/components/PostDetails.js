@@ -79,7 +79,8 @@ class PostDetails extends Component {
                         <div className="post-detail-author">{post.author}</div>
                         <div className="post-detail-title">{post.title}</div>
                         <div className="post-detail-timestamp">{post.formattedDate}</div>
-                        <div className="post-detail-votes">Vote Score: {post.voteScore}</div>
+                        <div className="post-detail-votes">Votes: {post.voteScore}</div>
+                        <div className="post-detail-comment-count">Comments: {post.commentCount}</div>
                     </div>
                     <div className="post-detail-content">
                         <p>{post.body}</p>
