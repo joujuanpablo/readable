@@ -127,6 +127,20 @@
     cursor: pointer;
 }
 
+.post-summary-wrapper .post-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.action-button {
+    transition: color 0.5s ease;
+}
+
+.action-button:hover {
+    color: #3ff
+}
+
 .post-detail {
     border: 1px solid lightgray;
 }

@@ -62,10 +62,10 @@ class CommentSummary extends Component {
                 <div className="comment-body">
                     {comment.body}
                 </div>
-                <button className="vote-up icon-btn" onClick={() => this.handleCommentVote({ id: comment.id, option: 'upVote' })}><TiThumbsUp size={30} /></button>
-                <button className="vote-down icon-btn" onClick={() => this.handleCommentVote({ id: comment.id, option: 'downVote' })}><TiThumbsDown size={30}/></button>
-                <button className="edit icon-btn" onClick={() => this.handleCommentEdit(comment)}><TiEdit size={30} /></button>
-                <button title='delete comment' className="delete icon-btn" onClick={() => this.handleDeleteComment(comment.id)}><FaTrash size={30} /></button>
+                <button className="vote-up icon-btn action-button" onClick={() => this.handleCommentVote({ id: comment.id, option: 'upVote' })}><TiThumbsUp size={30} /></button>
+                <button className="vote-down icon-btn action-button" onClick={() => this.handleCommentVote({ id: comment.id, option: 'downVote' })}><TiThumbsDown size={30}/></button>
+                <button className="edit icon-btn action-button" onClick={() => this.handleCommentEdit(comment)}><TiEdit size={30} /></button>
+                <button title='delete comment' className="delete icon-btn action-button" onClick={() => this.handleDeleteComment(comment.id)}><FaTrash size={30} /></button>
                 <Modal
                     className='new-comment comment modal'
                     overlayClassName='overlay'

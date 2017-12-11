@@ -85,10 +85,10 @@ class PostDetails extends Component {
                         <p>{post.body}</p>
                     </div>
                     <hr />
-                    <button title='vote up' className="vote-up icon-btn"><TiThumbsUp size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'upVote' })} /></button>
-                    <button title='vote down' className="vote-down icon-btn"><TiThumbsDown size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'downVote' })} /></button>
-                    <button title='edit post' className="edit icon-btn" onClick={() => this.openPostsModal()}><TiEdit size={35} /></button>
-                    <button title='delete post' className="delete icon-btn" onClick={() => this.handleDeletePost(post.id)}><FaTrash size={35} /></button>
+                    <button title='vote up' className="vote-up icon-btn action-button"><TiThumbsUp size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'upVote' })} /></button>
+                    <button title='vote down' className="vote-down icon-btn action-button"><TiThumbsDown size={35} onClick={() => this.handlePostVote({ id: post.id, option: 'downVote' })} /></button>
+                    <button title='edit post' className="edit icon-btn action-button" onClick={() => this.openPostsModal()}><TiEdit size={35} /></button>
+                    <button title='delete post' className="delete icon-btn action-button" onClick={() => this.handleDeletePost(post.id)}><FaTrash size={35} /></button>
                 </div>
                 <div className="post-detail-comments">
                     <ListComments id={this.props.post.id} />
