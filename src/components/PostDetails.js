@@ -92,7 +92,7 @@ class PostDetails extends Component {
                     <button title='delete post' className="delete icon-btn action-button" onClick={() => this.handleDeletePost(post.id)}><FaTrash size={35} /></button>
                 </div>
                 <div className="post-detail-comments">
-                    <ListComments id={this.props.post.id} />
+                    <ListComments id={post.id} />
                     <div className="add-comment">
                         <input type="text" onClick={() => this.openCommentModal()} placeholder="write a comment..." />
                     </div>

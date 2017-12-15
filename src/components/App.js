@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import logo from '../images/logo.png';
 import '../App.css'
-import { Route, withRouter, Redirect } from 'react-router-dom'
+import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/api';
 import { handleReceivedPosts, handleReceivedCategories, voteOnPost } from '../actions/actions'
@@ -39,27 +39,33 @@ class App extends Component {
           <Navbar categories={categories}></Navbar>
         </header>
         <div className="App-body container">
-          <Route exact path='/' render={() => (
-            <Redirect from='/' to='/all' />
-          )} />
-          <Route path='/all' render={() => (
-            <ListPosts category='all' />
-          )} />
-          <Route path='/create' render={() => (
-            <CreatePost />
-          )} />
-          {categories.map((category) => (
-            <Route path={`/${category}`} key={category} render={() => (
-              <ListPosts category={category} />
+          <Switch>
+            <Route exact path='/' render={() => (
+              <Redirect from='/' to='/all' />
             )} />
-          ))}
-          {posts.map((post) => (
-          <Route path={`/post-${post.id}`} key={`post-${post.id}`} render={() => (
-              <div>
-                <PostDetails post={post} />
-              </div>
+            <Route exact path='/all' render={() => (
+              <ListPosts category='all' />
             )} />
-          ))}
+            <Route path='/create' render={() => (
+              <CreatePost />
+            )} />
+            {categories.map((category) => (
+              <Route exact path={`/${category}`} key={category} render={() => (
+                <ListPosts category={category} />
+              )} />
+            ))}
+            {posts.map((post) => (
+              <Route exact path={`/post-${post.id}`} key={`post-${post.id}`} render={() => (
+                <div>
+                  <PostDetails post={post} />
+                </div>
+              )} />
+            ))}
+            <Route render={() => (
+              <NotFound />
+            )} />
+          </Switch>
+
         </div>
       </div>
     );
@@ -80,4 +86,4 @@ const mapDispatchToProps = (dispatch) => ({
   receivedCategories: (categories) => dispatch(handleReceivedCategories(categories))
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

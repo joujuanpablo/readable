@@ -6,7 +6,6 @@ export default (state = { initialState }, action) => {
     switch (action.type) {
         case RECEIVED_COMMENTS:
             return [
-                ...state,
                 ...action.payload
             ]
         case VOTE_ON_COMMENT:

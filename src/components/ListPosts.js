@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import PostSummary from './PostSummary'
 import FilterBy from './FilterBy'
 import sortBy from 'sort-by'
@@ -32,4 +33,4 @@ const mapDispatchToProps = (dispatch) => ({
     receivedPosts: (posts) => dispatch(handleReceivedPosts(posts))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListPosts)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListPosts))

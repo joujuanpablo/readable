@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../utils/api';
+import { withRouter } from 'react-router-dom'
+import * as ReadableAPI from '../utils/api'
 import Loading from 'react-loading'
 import CommentSummary from './CommentSummary'
-
 import { connect } from 'react-redux'
 import { handleReceivedComments } from '../actions/actions'
 
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch) => ({
     receivedComments: (comments) => dispatch(handleReceivedComments(comments))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListComments)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListComments))

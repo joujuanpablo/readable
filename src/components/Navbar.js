@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
-
+import { withRouter } from 'react-router-dom'
 
 class Navbar extends Component {
 
@@ -27,4 +26,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+export default withRouter(Navbar)
