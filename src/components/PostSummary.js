@@ -51,7 +51,7 @@ class PostSummary extends Component {
         const { post } = this.props
         return (
             <div className='post-summary-wrapper'>
-                <Link to={`/post-${post.id}`} className='post-summary btn btn-outline-info '>
+                <Link to={`/${post.category}/post-${post.id}`} className='post-summary btn btn-outline-info '>
                     <div className='post-summary-header'>
                         <div className='post-title'>{post.title}</div>
                         <p className='post-author'>{post.author}</p>

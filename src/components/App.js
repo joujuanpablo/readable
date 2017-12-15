@@ -55,7 +55,7 @@ class App extends Component {
               )} />
             ))}
             {posts.map((post) => (
-              <Route exact path={`/post-${post.id}`} key={`post-${post.id}`} render={() => (
+              <Route exact path={`/${post.category}/post-${post.id}`} key={`post-${post.id}`} render={() => (
                 <div>
                   <PostDetails post={post} />
                 </div>
